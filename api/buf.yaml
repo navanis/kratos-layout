@@ -1,0 +1,18 @@
+version: v1
+
+deps:
+  - 'buf.build/googleapis/googleapis'
+  - 'buf.build/envoyproxy/protoc-gen-validate'
+  - 'buf.build/kratos/apis'
+  - 'buf.build/gnostic/gnostic'
+  - 'buf.build/gogo/protobuf'
+  - 'buf.build/tx7do/pagination'
+
+breaking:
+  use:
+    - FILE
+
+lint:
+  use:
+    - DEFAULT
+  allow_comment_ignores: true

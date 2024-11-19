@@ -1,0 +1,21 @@
+# 配置protoc生成规则
+version: v1
+
+managed:
+  enabled: true
+  optimize_for: SPEED
+
+plugins:
+  # 使用go插件生成go代码
+  #- plugin: buf.build/protocolbuffers/go
+  - name: go
+    out: ./
+    opt: paths=source_relative # 使用相对路径
+
+  # generate message validator code
+  #- plugin: buf.build/bufbuild/validate-go
+  - name: validate
+    out: ./
+    opt:
+      - paths=source_relative # 使用相对路径
+      - lang=go
