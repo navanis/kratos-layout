@@ -2,6 +2,9 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"github.com/go-kratos/kratos-layout/internal/mq/kafka"
+	"github.com/tx7do/kratos-transport/broker"
 
 	v1 "github.com/go-kratos/kratos-layout/api/helloworld/v1"
 	"github.com/go-kratos/kratos-layout/internal/biz"
@@ -19,11 +22,11 @@ func NewGreeterService(uc *biz.GreeterUsecase) *GreeterService {
 	return &GreeterService{uc: uc}
 }
 
-// SayHello implements helloworld.GreeterServer.
-func (s *GreeterService) SayHello(ctx context.Context, in *v1.HelloRequest) (*v1.HelloReply, error) {
-	g, err := s.uc.CreateGreeter(ctx, &biz.Greeter{Hello: in.Name})
-	if err != nil {
-		return nil, err
-	}
-	return &v1.HelloReply{Message: "Hello " + g.Hello}, nil
+// 从kafka中接收数据并处理
+func (s *GreeterService) HandleReceiveGreeterData(ctx context.Context, topic string, headers broker.Headers, msg *kafka.GreeterData) error {
+
+	fmt.Printf("Topic %s,  Msg:%v", topic, msg)
+
+	// Notice 这里面可以做一些业务逻辑～
+	return s.uc.AutoHandleGreeterData(ctx, msg)
 }

@@ -8,7 +8,26 @@ import "google/protobuf/duration.proto";
 message Bootstrap {
   Server server = 1;
   Data data = 2;
+  Kafka kafka = 3;
 }
+
+message Kafka {
+  message Server {
+    repeated string addr = 1;
+  }
+  message Broker {
+    repeated string addr = 2;
+  }
+  Server server = 1;
+  Broker broker = 2;
+  string username = 3;
+  string password = 4;
+  string pem = 5;
+  uint32 num_partitions = 6;
+  string topic = 7;
+  string group = 8;
+}
+
 
 message Server {
   message HTTP {

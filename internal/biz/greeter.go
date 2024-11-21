@@ -2,8 +2,9 @@ package biz
 
 import (
 	"context"
-
+	"fmt"
 	v1 "github.com/go-kratos/kratos-layout/api/helloworld/v1"
+	"github.com/go-kratos/kratos-layout/internal/mq/kafka"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"
@@ -39,8 +40,8 @@ func NewGreeterUsecase(repo GreeterRepo, logger log.Logger) *GreeterUsecase {
 	return &GreeterUsecase{repo: repo, log: log.NewHelper(logger)}
 }
 
-// CreateGreeter creates a Greeter, and returns the new Greeter.
-func (uc *GreeterUsecase) CreateGreeter(ctx context.Context, g *Greeter) (*Greeter, error) {
-	uc.log.WithContext(ctx).Infof("CreateGreeter: %v", g.Hello)
-	return uc.repo.Save(ctx, g)
+// 可以做一些业务逻辑，接收从kafka中收到的数据并处理
+func (uc *GreeterUsecase) AutoHandleGreeterData(ctx context.Context, msg *kafka.GreeterData) error {
+	fmt.Println(msg)
+	return nil
 }
