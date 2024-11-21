@@ -11,11 +11,3 @@ plugins:
   - name: go
     out: ./
     opt: paths=source_relative # 使用相对路径
-
-  # generate message validator code
-  #- plugin: buf.build/bufbuild/validate-go
-  - name: validate
-    out: ./
-    opt:
-      - paths=source_relative # 使用相对路径
-      - lang=go
